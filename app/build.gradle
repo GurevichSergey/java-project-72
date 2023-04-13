@@ -18,6 +18,11 @@ repositories {
 }
 
 dependencies {
+    implementation 'io.javalin:javalin:4.0.1'
+    implementation 'org.slf4j:slf4j-simple:1.7.31'
+    implementation 'org.thymeleaf:thymeleaf:3.0.12.RELEASE'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.0.0'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
     testImplementation(
