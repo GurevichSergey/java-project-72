@@ -23,15 +23,15 @@ public class Url extends Model {
         this.createdAt = createdAt;
     }
 
-    public long getId() {
+    public final long getId() {
         return this.id;
     }
 
-    public String getName() {
+    public final String getName() {
         return this.name;
     }
 
-    public Instant getCreatedAt() {
+    public final Instant getCreatedAt() {
         return this.createdAt;
     }
 }

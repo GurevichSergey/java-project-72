@@ -4,17 +4,42 @@
 <head>
     <title>Сайты</title>
 </head>
-
 <section layout:fragment="content">
-    <table class="table table-striped mt-5">
-        <thead>
+    <div class="container-lg mt-5">
+        <h1>Сайты</h1>
+        <table class="table table-hover table-bordered mt-3">
+            <thead>
             <tr>
                 <th class="col-1">ID</th>
-                <th class="col-2">Название</th>
-                <th class="col-3">Последняя проверка</th>
-                <th class="col-4">Код ответа</th>
+                <th>Имя</th>
+                <th class="col-2">Последняя проверка</th>
+                <th class="col-1">Код ответа</th>
             </tr>
-        </thead>
-    </table>
+            </thead>
+            <tbody>
+                <tr th:each="url : ${urls}" th:object="${url}">
+                    <td th:text="*{getId()}"></td>
+                    <td>
+                        <a th:href="@{/urls/{id}(id=*{getId()})}" th:text="${#strings.abbreviate(url.getName(), 30)}"></a>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation" th:if="${#lists.size(pages)}">
+            <ul class="pagination justify-content-center mt-5">
+                <li th:class="'page-item' + ${currentPage <= 1 ? ' disabled' : ''}">
+                    <a class="page-link" th:href="@{/urls(page=${currentPage - 1})}">Previous</a>
+                </li>
+                <li th:each="page : ${pages}" th:class="'page-item' + ${currentPage == page ? ' active' : ''}">
+                    <a class="page-link" th:href="@{/urls(page=${page})}" th:text="${page}"></a>
+                </li>
+                <li th:class="'page-item' + ${currentPage >= #lists.size(pages) ? ' disabled' : ''}">
+                    <a class="page-link" th:href="@{/urls(page=${currentPage + 1},)}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </section>
 </html>

@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 public final class UrlController {
     public static Handler getListUrls = ctx -> {
         int page = ctx.queryParamAsClass("page", Integer.class).getOrDefault(1) - 1;
-        int rowsPerPage = 10;
+        final int rowsPerPage = 10;
 
         PagedList<Url> pagedUrls = new QUrl()
                 .setFirstRow(page * rowsPerPage)
@@ -39,23 +39,24 @@ public final class UrlController {
         ctx.render("urls/index.html");
     };
     public static Handler createUrl = ctx ->  {
-        String name = ctx.formParam("url");
+        String urlString = ctx.formParam("url");
         UrlValidator urlValidator = new UrlValidator();
-        if (!urlValidator.isValid(name)) {
+        if (!urlValidator.isValid(urlString)) {
             ctx.sessionAttribute("flash", "Некорректный URL");
             ctx.sessionAttribute("flash-type", "danger");
             ctx.render("index.html");
             return;
         }
-        URL url = new URL(name);
-        Url mainUrl = new Url(url.getProtocol() + "://" + url.getAuthority());
-        List<Url> urls = new QUrl()
-                .orderBy()
-                .id.asc()
-                .findList();
-        if (urls.contains(mainUrl)) {
+        assert urlString != null;
+        URL parsedUrl = new URL(urlString);
+        var normalizeUrl = parsedUrl.getProtocol() + "://" + parsedUrl.getAuthority();
+        Url mainUrl = new Url(normalizeUrl);
+        boolean urlContain = new QUrl()
+                .name.equalTo(normalizeUrl)
+                .exists();
+        if (urlContain) {
             ctx.sessionAttribute("flash", "Страница уже существует");
-            ctx.sessionAttribute("flash-type", "danger");
+            ctx.sessionAttribute("flash-type", "info");
             ctx.redirect("/urls");
             return;
         }
@@ -65,14 +66,14 @@ public final class UrlController {
         ctx.redirect("/urls");
     };
     public static Handler showUrl = ctx -> {
-      long id = ctx.pathParamAsClass("id", Long.class).getOrDefault(null);
-      Url url = new QUrl()
+        long id = ctx.pathParamAsClass("id", Long.class).getOrDefault(null);
+        Url url = new QUrl()
               .id.equalTo(id)
               .findOne();
         if (url == null) {
             throw new NotFoundResponse();
         }
-      ctx.attribute("url", url);
-      ctx.render("urls/show.html");
+        ctx.attribute("url", url);
+        ctx.render("urls/show.html");
     };
 }
