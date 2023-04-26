@@ -42,6 +42,7 @@ dependencies {
     implementation 'javax.activation:activation:1.1.1'
 
     implementation 'com.konghq:unirest-java:3.13.10'
+    implementation 'org.jsoup:jsoup:1.15.4'
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
@@ -49,6 +50,7 @@ dependencies {
     testImplementation 'io.ebean:ebean-test:12.15.1'
     testImplementation 'com.konghq:unirest-java:3.13.6'
     testImplementation 'com.squareup.okhttp3:mockwebserver:4.10.0'
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
 }
 
 compileJava {
