@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layouts/application.html}">
     <head>
         <title>Анализ сайта</title>
@@ -22,7 +22,9 @@
                 </tr>
             </table>
             <h2 class="mt-5">Проверки</h2>
-            <a class="btn btn-primary" href="/urls">Запустить проверку</a>
+            <form method="post" th:action="@{/urls/{id}/checks(id=${url.getId()})}">
+                <button type="submit" class="btn btn-primary">Запустить проверку</button>
+            </form>
             <table class="table table-hover table-bordered mt-3">
                 <thead>
                 <tr>
@@ -34,6 +36,16 @@
                     <th class="col-2">Дата проверки</th>
                 </tr>
                 </thead>
+                <tbody>
+                <tr th:each="urlCheck : ${urlChecks}" th:object="${urlCheck}">
+                    <td th:text="*{getId()}"></td>
+                    <td th:text="*{getStatusCode()}"></td>
+                    <td th:text="${#strings.abbreviate(urlCheck.getTitle(), 20)}"></td>
+                    <td th:text="${#strings.abbreviate(urlCheck.getH1(), 20)}"></td>
+                    <td th:text="${#strings.abbreviate(urlCheck.getDescription(), 50)}"></td>
+                    <td th:text="${#temporals.format(urlCheck.getCreatedAt(), 'dd/MM/yyyy HH:mm')}"></td>
+                </tr>
+                </tbody>
             </table>
         </div>
     </section>
