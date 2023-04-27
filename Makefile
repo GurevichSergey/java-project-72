@@ -1,6 +1,8 @@
-
 .DEFAULT_GOAL := build-run
 
+setup:
+	make -C app setup
+	
 clean:
 	make -C app clean
 
