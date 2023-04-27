@@ -10,7 +10,6 @@
 
 * JDK 17
 * Gradle 7
-* GNU Make
 
 ## Setup
 
