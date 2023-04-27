@@ -35,4 +35,8 @@ public class Url extends Model {
     public final List<UrlCheck> getUrlList() {
         return this.urlChecks;
     }
+    public final UrlCheck getLastUrlCheck() {
+        return getUrlList().get(urlChecks.size() - 1);
+    }
 }
+
