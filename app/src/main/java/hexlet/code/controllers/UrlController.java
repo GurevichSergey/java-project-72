@@ -47,6 +47,7 @@ public final class UrlController {
         ctx.attribute("currentPage", currentPage);
         ctx.render("urls/index.html");
     };
+
     public static Handler createUrl = ctx ->  {
         try {
             String urlString = ctx.formParam("url");
@@ -72,6 +73,7 @@ public final class UrlController {
             ctx.render("index.html");
         }
     };
+
     public static Handler showUrl = ctx -> {
         long id = ctx.pathParamAsClass("id", Long.class).getOrDefault(null);
         Url url = new QUrl()
@@ -80,6 +82,7 @@ public final class UrlController {
         if (url == null) {
             throw new NotFoundResponse();
         }
+
         List<UrlCheck> urlChecks = new QUrlCheck()
                 .url.equalTo(url)
                 .orderBy().id.desc()
@@ -89,11 +92,14 @@ public final class UrlController {
         ctx.attribute("url", url);
         ctx.render("urls/show.html");
     };
+
     public static Handler urlCheck = ctx -> {
         long id = ctx.pathParamAsClass("id", Long.class).getOrDefault(null);
+
         Url url = new QUrl()
                 .id.equalTo(id)
                 .findOne();
+
         try {
             HttpResponse<String> response = Unirest
                     .get(url.getName())

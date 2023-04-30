@@ -65,8 +65,8 @@ public class AppTest {
     }
     @Test
     void testMigrationGenerator() {
-
     }
+
     @Nested
     class RootTest {
         @Test
@@ -76,6 +76,7 @@ public class AppTest {
             assertThat(response.getBody()).contains("Анализатор страниц");
         }
     }
+
     @Nested
     class UrlTest {
         @Test
@@ -88,6 +89,7 @@ public class AppTest {
             assertThat(response.getStatus()).isEqualTo(200);
             assertThat(body).contains(existingUrl.getName());
         }
+
         @Test
         void testCreateExistingUrl() {
             HttpResponse<String> responsePost1 = Unirest
@@ -102,6 +104,7 @@ public class AppTest {
 
             assertThat(response.getStatus()).isEqualTo(200);
         }
+
         @Test
         void testShow() {
             HttpResponse<String> response = Unirest
@@ -112,6 +115,7 @@ public class AppTest {
             assertThat(response.getStatus()).isEqualTo(200);
             assertThat(body).contains(existingUrl.getName());
         }
+
         @Test
         void testIncorrectShowId() {
             HttpResponse<String> response = Unirest
@@ -119,6 +123,7 @@ public class AppTest {
                     .asString();
             assertThat(response.getStatus()).isEqualTo(404);
         }
+
         @Test
         void testIndexUrls() {
             HttpResponse<String> response = Unirest
@@ -128,6 +133,7 @@ public class AppTest {
             assertThat(body).contains(existingUrl.getName());
             assertThat(response.getStatus()).isEqualTo(200);
         }
+
         @Test
         void testCreateInvalidUrl() {
             String inputUrl = "Qwerty";
@@ -150,6 +156,7 @@ public class AppTest {
 
             assertThat(actualUrl).isNull();
         }
+
         @Test
         void testCreate() {
             String inputUrl = "https://leetcode.com";
@@ -178,9 +185,10 @@ public class AppTest {
             assertThat(actuallUrl).isNotNull();
             assertThat(actuallUrl.getName()).isEqualTo(inputUrl);
         }
+
         @Test
         void testUrlCheck() throws IOException {
-            String samplePage = Files.readString(Paths.get("src/test/resources/testIndex.html"));
+            String samplePage = Files.readString(Paths.get("src/test/resources/html/testIndex.html"));
 
             MockWebServer mockServer = new MockWebServer();
             mockServer.enqueue(new MockResponse().setBody(samplePage));
