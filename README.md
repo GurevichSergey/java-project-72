@@ -4,7 +4,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/ae7d0e518b9983bf1358/maintainability)](https://codeclimate.com/github/GurevichSergey/java-project-72/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ae7d0e518b9983bf1358/test_coverage)](https://codeclimate.com/github/GurevichSergey/java-project-72/test_coverage)
 # Page Analyzer
-[Page Analyzer](https://project72.onrender.com) - a site that analyzes said pages for SEO suitability.
+[Page Analyzer](https://project72.onrender.com) – сайт, который анализирует указанные страницы на SEO пригодность.
 
 ## Requirements
 
